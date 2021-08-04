@@ -2,21 +2,23 @@ package threadTest;
 
 import javax.swing.*;
 import java.util.Random;
+import java.util.Scanner;
 
 public class BallGame extends JFrame {
     Random rd = new Random();
-    int speed=0;
     class ballThread extends Thread{
         private JLabel label;
         private int x,y;
         private int xg=1;
         private int yg=1;
+        private int speed=0;
 
-        public ballThread(String name, int x, int y){
+        public ballThread(String name, int x, int y1, int speed){
             this.x=x;
-            this.y=y;
+            this.y=y1;
+            this.speed=speed;
             label = new JLabel(name);
-            label.setBounds(x, y, 0,0);
+            label.setBounds(x, y1, 0,0);
             add(label);
         }
         public void run(){
@@ -35,7 +37,7 @@ public class BallGame extends JFrame {
                     x=1;
                     xg=xg*-1;
                 }
-                if(y>=545){
+                if(y>=945){
                     yg=yg*-1;
                 }else if(y<=0){
                     y=1;
@@ -61,30 +63,21 @@ public class BallGame extends JFrame {
     }
     public BallGame(){
         setTitle("ball game");
-        setSize(1200,600);
+        setSize(1200,1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+        System.out.print("공 개수 입력 : ");
+        int ballcount= new Scanner(System.in).nextInt();
+
+        for(int i=0;i<ballcount;i++){
+            (new ballThread("O",rd.nextInt(1170),rd.nextInt(940),rd.nextInt(4))).start();
+        }
 
 
 
 
-        (new ballThread("O",rd.nextInt(1170),rd.nextInt(540))).start();
-        speed=rd.nextInt(3);
-        (new ballThread("O",rd.nextInt(1170),rd.nextInt(540))).start();
-        speed=rd.nextInt(3);
-        (new ballThread("O",rd.nextInt(1170),rd.nextInt(540))).start();
-        speed=rd.nextInt(3);
-        (new ballThread("O",rd.nextInt(1170),rd.nextInt(540))).start();
-        speed=rd.nextInt(3);
-        (new ballThread("O",rd.nextInt(1170),rd.nextInt(540))).start();
-        speed=rd.nextInt(3);
-        (new ballThread("O",rd.nextInt(1170),rd.nextInt(540))).start();
-        speed=rd.nextInt(3);
-        (new ballThread("O",rd.nextInt(1170),rd.nextInt(540))).start();
-        speed=rd.nextInt(3);
-        (new ballThread("O",rd.nextInt(1170),rd.nextInt(540))).start();
-        speed=rd.nextInt(3);
-        (new ballThread("O",1160,530)).start();
+
+
 
         setVisible(true);
 
